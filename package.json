@@ -1,0 +1,49 @@
+{
+  "name": "assignment-b1-crud-snippets",
+  "version": "1.0.0",
+  "description": "Assignment B1 CRUD Snippets",
+  "main": "server.js",
+  "type": "module",
+  "private": "true",
+  "scripts": {
+    "start": "node src/server.js",
+    "start:dev": "nodemon --inspect -r dotenv/config src/server.js",
+    "lint": "npx eslint .src/ || exit 0",
+    "lint:fix": "npx eslint .src --fix || exit 0",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.lnu.se:1dv026/student/pr222ja/assignment-b1-crud-snippets.git"
+  },
+  "keywords": [
+    "crud"
+  ],
+  "author": "Pauliina Raitaniemi <pr222ja@student.lnu.se>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-hbs": "^2.3.4",
+    "express-session": "^1.17.1",
+    "helmet": "^4.4.1",
+    "mongoose": "^5.11.14",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@lnu/eslint-config": "^1.1.2",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.19.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsdoc": "^31.6.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "nodemon": "^2.0.7"
+  },
+  "eslintConfig": {
+    "extends": "@lnu"
+  },
+  "nodemonConfig": {
+    "ext": "js, json, hbs, html, css"
+  }
+}
