@@ -1,0 +1,499 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* -------- Base styles -------- */
+html {
+    font-size: 16px;
+    color: #0E35AF;
+}
+
+body {
+    font-family: 'Chakra Petch', sans-serif;
+    margin: 0 auto;
+    /* max-width: 1000px; */
+    background-color: #F6EFEF;
+    height: 100%;
+}
+
+h1, h2, h3 {
+    font-family: 'Rokkitt', serif; 
+    margin-top: 10px;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+p {
+    margin: 15px 2px;
+    align-self: center;
+}
+
+.center {
+    text-align: center;
+}
+
+.error {
+    margin-left: 50px;
+}
+
+/* --------  Links (except nagivation links) -------- */
+ul {
+    list-style: none;
+}
+
+nav a, main section h1 a, footer div ul a  {
+    text-decoration: none;
+}
+
+
+/* Links  */
+a:link {
+    color: #FF5050;
+}
+
+a:hover, a:active {
+    color: #1264B1;
+}
+
+a:visited {
+    color: #0E35AF;
+}
+
+
+/* Headers in main section and courtesy nav */
+h1 a:link,  h1 a:visited, .courtesy a:link, .courtesy a:visited {
+    color: #0E35AF;
+}
+
+h1 a:hover, h1 a:active {
+    color: #FF5050;
+}
+
+.courtesy a:hover, .courtesy a:active {
+    color: #1264B1;
+}
+
+/* Local navigations */
+.breadcrumbs a:visited, .productMenu a:visited {
+    color: #FF5050
+}
+
+.breadcrumbs a:hover, .breadcrumbs a:active, .productMenu a:hover, .productMenu a:active {
+    color: #1264B1;
+}
+
+/* Main navigation links */
+.mainNav a:link, .mainNav a:visited {
+    color: #FFFFFF;
+}
+
+.mainNav a:hover, a:active {
+    color: #FFDD57;
+}
+
+/* Footer links */
+footer div ul a:visited {
+    color: #FF5050;
+}
+
+footer div ul a:active, footer div ul a:hover{
+    color: #1264B1;
+}
+
+/* -------- -------- End of links -------- -------- */
+
+
+/* -------- ----- All navigations ----- --------  */
+/* Main navigation menu */
+.mainNav {
+    background-color: #FF5050;
+}
+.mainNav ul {
+    font-size: 1.75rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.mainNav li {
+    padding: 5px 50px;
+}
+
+#mobNav {
+    display: none;
+}
+
+/* Main drop-down menu */
+.dropdown ul {
+    display: none;
+    position: absolute;
+    background-color: #FF5050;
+}
+
+.dropdown ul {
+    margin-left: -70px;    
+}
+
+.dropdown:hover ul {
+    display: block;
+}
+
+/* Courtesy navigation */
+.courtesy ul {
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.courtesy ul li {
+    padding: 10px 10px;  
+    border-bottom: 2px solid #FF5050;
+}
+
+.courtesy li:hover {
+    background-color: #1264b13a;
+}
+
+/* Local navigations */
+.breadcrumbs, .productMenu {
+    background-color: #F4F5F6;
+}
+.breadcrumbs ul {
+    display: flex;
+    flex-direction: row; 
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.breadcrumbs ul li {
+    padding: 5px 0px 5px 0px;    
+}
+
+.breadcrumbs li+li:before {
+    content: "->";
+    margin: 0px 5px;
+    color: #FF5050;
+}
+
+.breadcrumbs li:last-of-type {
+        font-weight: 600;
+}
+
+.productMenu ul {
+    display: block;
+}
+
+.productMenu {
+    font-size: 1.75rem;
+    padding: 15px;
+}
+/*    END of Navigations    */
+
+
+/* --- Styles for different parts of the page  --- */
+
+header {
+    background-color: #FFFF;
+}
+
+main {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    padding: 0px 10px;
+    background-color: #F6EFEF;
+}
+
+section {
+    padding-bottom: 50px;
+    margin-top: 30px;
+    border-bottom: dotted #FF5050;
+}
+
+main section p+p {
+    clear: both;
+}
+
+#frontpage {
+    text-align: center;
+    font-size: 3rem;
+}
+
+#frontpage h1 {
+    display: none;
+}
+
+/* Contact form */
+fieldset {
+    border-style: none;
+    margin-top: 30px;
+}
+
+#name, #email, #message {
+    display: flex;
+    flex-direction: column; 
+    margin-bottom: 15px;   
+}
+
+button, input, textarea {
+    font-family: inherit;
+    font-size: 100%;
+}
+
+textarea {
+    width: 50%
+}
+
+#send {
+    margin-top: 15px;
+}
+
+footer {
+    background-color: #FF5050;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-bottom: 40px;
+}
+
+footer div {
+    background-color: #F6EFEF;
+    width: 25%;
+    padding: 20px;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+footer div h3 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+footer div ul {
+    margin-left: 40px;
+    list-style: disc;
+}
+
+/* Flash messages styles */
+.flash {
+    display: block;
+    padding: 10px;
+    margin: 10px;
+    border: 3px dotted #0E35AF;
+}
+
+#success {
+    background-color: #caffb3;
+    color: #3b6528;
+}
+
+#danger {
+    background-color: #542020;
+    color:#F6EFEF;
+}
+
+/*  -------- Images   --------  */
+
+img {
+    max-width: 100%;
+}
+
+#headerImg {
+    text-align: center;
+}
+
+#mob-logga {
+    display: none;
+}
+
+section img {
+    float: right;
+    margin: 15px;
+}
+
+img#itunes {
+    border-radius: 13px;
+    width: 300px;
+    height: 83px;
+}
+
+footer div.footerImg, section picture img{
+    margin: 0 auto;
+}
+
+footer div.footerImg:hover {
+    background-color: #0e36af31;
+    border-radius: 100px;
+}
+
+/*   Grid layout    */ 
+body {
+    display: grid;
+    grid-template-columns: 150px auto 150px;
+    grid-template-rows: min-content;
+    grid-template-areas: 
+    "header  header  header"
+    "nav     nav     nav"
+    "crumbs  crumbs  crumbs"
+    ".       main    ."
+    "footer  footer  footer";
+}
+
+header {
+    grid-area: header;
+}
+
+.mainNav {
+    grid-area: nav;
+}
+
+.breadcrumbs {
+    grid-area: crumbs;
+}
+
+.productMenu {
+    grid-area: crumbs;
+}
+
+main {
+    grid-area: main;
+}
+
+footer {
+    grid-area: footer;
+}
+/*    END of grid layout    */
+
+
+/* ------   Media queries ----- */
+@media screen and (max-width: 890px) {
+
+
+    body {
+        display: block;
+    }
+
+    header {
+        padding: 0px 20px;
+    }
+
+    main {
+        margin: 10px;
+    }
+    #frontpage {
+        font-size: 2.5rem;
+    }
+
+    footer div {
+        flex-direction: column;
+        width: 100%;
+    }
+    footer div.footerImg {
+        width: 20%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+
+    header {
+        padding: 0px;
+    }
+
+    #mob-logga {
+        display: block;
+    }
+
+    #headerImg, .courtesy, .mainNav {
+        display: none;
+    }
+
+    #mobNav {
+        background-color: #FF5050;
+        color: #ffffff;
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        overflow-x: auto;
+    }
+
+    #mobNav ul {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;      
+        position: relative;
+    }
+
+    #mobNav ul ul {
+        display: none;
+    }
+
+    #mobNav ul li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    #avsnittMeny, #butikMeny {
+        background-color: #F4F5F6;
+        color: #ffffff;
+        border-top: 2px solid #FF5050;
+        display: block;
+        position: fixed;
+        padding-top: 5px;
+        font-size: 1.2rem;
+        bottom: 100px;
+        left: 0;
+        width: 100%;
+        height: 36px;
+        overflow-x: auto;
+    }
+
+    #butikMeny a:link, #butikMeny a:visited, #avsnittMeny a:link, #avsnittMeny a:visited {
+        color: #FF5050;
+    }
+
+    #name, #email, #message {
+        width: 100%;  
+    }
+
+    footer {
+        margin-bottom: 90px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    section img {
+        float: none;
+        margin: auto;
+    }
+
+    #frontpage {
+        font-size: 2rem;
+    }
+}
