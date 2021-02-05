@@ -1,5 +1,5 @@
 /**
- * Sub-router for numbers.
+ * Sub-router for snippets.
  *
  * @author Pauliina Raitaniemi <pr222ja@student.lnu.se>
  * @version 1.0.0
@@ -18,3 +18,6 @@ router.get('/', controller.index)
 // Page for creating a new snippet.
 router.get('/new', controller.new)
 // router.post('/create', controller.create)
+
+// Update snippet
+router.get('/edit', controller.edit)

@@ -212,6 +212,10 @@ header {
     background-color: #FFFF;
 }
 
+header h1 {
+    text-align: center;
+}
+
 main {
     margin-top: 20px;
     margin-bottom: 50px;
@@ -220,7 +224,7 @@ main {
 }
 
 section {
-    padding-bottom: 50px;
+    padding-bottom: 20px;
     margin-top: 30px;
     border-bottom: dotted #FF5050;
 }
@@ -257,6 +261,10 @@ button, input, textarea {
 
 textarea {
     width: 50%
+}
+
+input {
+    margin: 5px;
 }
 
 #send {
@@ -307,6 +315,27 @@ footer div ul {
     background-color: #542020;
     color:#F6EFEF;
 }
+
+/* CRUD */
+#snippetInput {
+    display: flex;
+    flex-direction: column;
+}
+
+#snippetInput textarea{
+    width: 100%;
+}
+
+#snippetInput input {
+    margin-top: 5px;
+    padding: 2px;
+}
+
+#registerForm {
+    display: inline-flex;
+    flex-direction: column;
+}
+
 
 /*  -------- Images   --------  */
 

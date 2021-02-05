@@ -7,10 +7,13 @@
 
 import express from 'express'
 import { router as snippetsRouter } from './snippets-router.js'
+import { router as usersRouter } from './users-router.js'
 
 export const router = express.Router()
 
 router.use('/', snippetsRouter)
+
+router.use('/', usersRouter)
 
 router.use('*', (req, res, next) => {
   const error = new Error()

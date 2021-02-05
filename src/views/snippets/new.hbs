@@ -1,7 +1,9 @@
-<h1>New</h1>
+<section>
+    <h1>New</h1>
 
-<form method="POST" action="/create">
-    <label for="codeSnippet">Number:</label>
-    <input type="textarea" name="codeSnippet">
-    <input type="submit" value="Create">
-</form>
+    <form id="snippetInput" method="POST" action="/create">
+        <label for="codeSnippet"></label>
+        <textarea name="codeSnippet" id="codeSnippet" rows="7" cols="40" required></textarea>
+        <input type="submit" value="Create">
+    </form>
+</section>

@@ -1,12 +1,14 @@
 /**
- * Module for SnippetsController.
+ * Module for UsersController.
  *
  * @author Pauliina Raitaniemi <pr222ja@student.lnu.se>
  * @version 1.0.0
  */
-// import model.
 
-export class SnippetsController {
+/**
+ * Encapsulation of controller.
+ */
+export class UsersController {
   /**
    * Render view and send rendered HTML string as a HTTP response.
    *
@@ -18,7 +20,7 @@ export class SnippetsController {
     try {
       const viewData = {}
 
-      res.render('snippets/index', { viewData })
+      res.render('users/login', { viewData })
     } catch (error) {
       next(error)
     }
@@ -29,20 +31,15 @@ export class SnippetsController {
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
+   * @param {Function} next - Express next-middleware function.
    */
-  async new (req, res) {
-    //
-    res.render('snippets/new')
-  }
+  async register (req, res, next) {
+    try {
+      const viewData = {}
 
-  /**
-   * Render view and send rendered HTML string as a HTTP response.
-   *
-   * @param {object} req - Express request object.
-   * @param {object} res - Express response object.
-   */
-  async edit (req, res) {
-    //
-    res.render('snippets/edit')
+      res.render('users/register', { viewData })
+    } catch (error) {
+      next(error)
+    }
   }
 }
