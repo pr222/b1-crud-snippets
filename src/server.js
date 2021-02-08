@@ -12,13 +12,13 @@ import logger from 'morgan'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 import { router } from './routes/router.js'
-// import { connectDB } from './config/mongoose.js'
+import { connectDB } from './config/mongoose.js'
 
 /**
  * The main function.
  */
 const main = async () => {
-  // await connectDB
+  await connectDB()
 
   const fullDirectory = dirname(fileURLToPath(import.meta.url))
   // const baseURL = process.env.BASE_URL || '/'

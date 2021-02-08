@@ -29,10 +29,29 @@ export class SnippetsController {
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
+   * @param {Function} next - Express next-middleware function.
    */
-  async new (req, res) {
+  async new (req, res, next) {
     //
     res.render('snippets/new')
+  }
+
+  /**
+   * Render view and send rendered HTML string as a HTTP response.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next-middleware function.
+   */
+  async create (req, res, next) {
+    const snippet = {
+      name: req.body.name,
+      content: req.body.content
+    }
+
+    await snippet.save()
+
+    res.redirect('.')
   }
 
   /**
