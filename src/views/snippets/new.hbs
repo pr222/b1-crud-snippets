@@ -2,6 +2,8 @@
     <h1>New</h1>
 
     <form id="snippetInput" method="POST" action="/create">
+        <label for="snippetTitle"><h2>Title</h2></label>
+        <input type="text" name="snippetTitle">
         <label for="codeSnippet"></label>
         <textarea name="codeSnippet" id="codeSnippet" rows="7" cols="40" required></textarea>
         <input type="submit" value="Create">

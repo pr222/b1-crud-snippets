@@ -7,7 +7,7 @@
 import mongoose from 'mongoose'
 
 const snippetsSchema = new mongoose.Schema({
-  tile: {
+  title: {
     type: String,
     required: true
   },
@@ -19,4 +19,4 @@ const snippetsSchema = new mongoose.Schema({
   timestamps: true
 })
 
-export const PureNumber = mongoose.model('Snippet', snippetsSchema)
+export const Snippet = mongoose.model('Snippet', snippetsSchema)

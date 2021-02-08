@@ -1,11 +1,14 @@
 {{#if viewData.snippets.length}}
     {{#each viewData.snippets}}
         <section>
+            <h1><a href="/{{id}}">{{title}}</a></h1>
             <ul>
                 <li>Created: {{createdAt}}</li>
-                <li>Author: {{author}}</li>
             </ul>
-            <p>{{snippet}}</p>
+            <p>{{content}}</p>
+            <button id="editButton"><a href="./{{id}}/edit/">Edit</a></button>
         </section>
     {{/each}}
+{{else}}
+    <p>No snippets?</p>
 {{/if}}

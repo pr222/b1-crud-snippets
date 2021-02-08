@@ -3,7 +3,7 @@
 
     <form id="snippetInput" method="POST" action="/update">
         <label for="codeSnippet"></label>
-        <textarea name="codeSnippet" id="codeSnippet" rows="7" cols="40" required></textarea>
+        <textarea name="codeSnippet" id="codeSnippet" rows="7" cols="40" required>{{viewData.content}}</textarea>
         <input type="submit" value="Update Snippet">
     </form>
     <input type="button" value="Delete Snippet">

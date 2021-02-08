@@ -6,7 +6,7 @@
  */
 import express from 'express'
 import hbs from 'express-hbs'
-// import session from 'express-session'
+import session from 'express-session'
 import helmet from 'helmet'
 import logger from 'morgan'
 import { dirname, join } from 'path'
@@ -21,7 +21,7 @@ const main = async () => {
   await connectDB()
 
   const fullDirectory = dirname(fileURLToPath(import.meta.url))
-  // const baseURL = process.env.BASE_URL || '/'
+  const baseURL = process.env.BASE_URL || '/'
 
   const app = express()
 
@@ -31,6 +31,7 @@ const main = async () => {
 
   app.use(express.static(join(fullDirectory, '..', 'public')))
 
+  // Set up view engine
   app.engine('hbs', hbs.express4({
     defaultLayout: join(fullDirectory, 'views', 'layouts', 'default'),
     partialsDir: join(fullDirectory, 'views', 'partials')
@@ -42,7 +43,32 @@ const main = async () => {
   app.use(express.urlencoded({ extended: false }))
 
   // ADD: middlewares
+  const sessionOptions = {
+    name: process.env.SESSION_NAME,
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // 24 hours
+      httpOnly: true,
+      sameSite: 'strict'
+    }
+  }
 
+  app.use(session(sessionOptions))
+
+  app.use((req, res, next) => {
+    if (req.session.flash) {
+      res.locals.flash = req.session.flash
+      delete req.session.flash
+    }
+
+    res.locals.baseURL = baseURL
+
+    next()
+  })
+
+  // Set routes
   app.use('/', router)
 
   // Errors
