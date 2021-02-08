@@ -1,5 +1,6 @@
 <section>
     <h1>{{viewData.title}}</a></h1>
     <p>{{viewData.content}}</p>
-    <button id="editButton"><a href="./:{{id}}/edit">Edit</a></button>
+    <button id="editButton"><a href="/{{viewData.id}}/edit">Edit</a></button>
+    <button id="removeButton"><a href="/{{viewData.id}}/remove">Delete</a></button>
 </section>

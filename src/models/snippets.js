@@ -9,11 +9,15 @@ import mongoose from 'mongoose'
 const snippetsSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
+    trim: true,
+    minlength: 1
   },
   content: {
     type: String,
-    required: true
+    required: true,
+    trim: true,
+    minlength: 1
   }
 }, {
   timestamps: true

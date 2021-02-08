@@ -15,13 +15,16 @@ const controller = new SnippetsController()
 // Index page with all snippets.
 router.get('/', controller.index)
 
-// View an individual snippet.
-router.get('/:id', controller.showSnippet)
-
 // Page for creating a new snippet.
 router.get('/new', controller.new)
 router.post('/create', controller.create)
 
+// View an individual snippet.
+router.get('/:id', controller.showSnippet)
 // Update snippet
 router.get('/:id/edit', controller.edit)
-// router.post('/:id/update', controller.update)
+router.post('/:id/update', controller.update)
+
+// Removing snippets
+router.get('/:id/remove', controller.remove)
+router.post('/:id/delete', controller.delete)

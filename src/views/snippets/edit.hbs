@@ -1,10 +1,12 @@
 <section>
     <h1>Edit</h1>
 
-    <form id="snippetInput" method="POST" action="/update">
-        <label for="codeSnippet"></label>
+    <form id="snippetInput" method="POST" action="/{{viewData.id}}/update">
+        <label for="snippetTitle"><h2>Title</h2></label>
+        <input type="text" name="snippetTitle" value="{{viewData.title}}">
+        <label for="codeSnippet"><h2>Snippet</h2></label>
+
         <textarea name="codeSnippet" id="codeSnippet" rows="7" cols="40" required>{{viewData.content}}</textarea>
         <input type="submit" value="Update Snippet">
-    </form>
-    <input type="button" value="Delete Snippet">
+    </form>   
 </section>
