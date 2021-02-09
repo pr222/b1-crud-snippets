@@ -28,7 +28,10 @@ export class SnippetsController {
             content: snippet.content,
             createdAt: moment(snippet.createdAt).fromNow()
           }))
+          .reverse()
       }
+
+      Snippet.find().sort(({ created_at: -1 }))
 
       res.render('snippets/index', { viewData })
     } catch (error) {
