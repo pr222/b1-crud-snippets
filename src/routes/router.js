@@ -13,7 +13,7 @@ export const router = express.Router()
 
 router.use('/', snippetsRouter)
 
-router.use('/', usersRouter)
+router.use('/users/', usersRouter)
 
 router.use('*', (req, res, next) => {
   const error = new Error()

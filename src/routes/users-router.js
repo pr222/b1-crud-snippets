@@ -17,3 +17,5 @@ router.get('/login', controller.index)
 
 router.get('/register', controller.register)
 // router.post('/register', controller.createUser)
+
+router.get('/logout', controller.logout)

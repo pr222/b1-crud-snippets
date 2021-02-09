@@ -10,7 +10,7 @@
  */
 export class UsersController {
   /**
-   * Render view and send rendered HTML string as a HTTP response.
+   * Display login-page.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -27,7 +27,25 @@ export class UsersController {
   }
 
   /**
-   * Render view and send rendered HTML string as a HTTP response.
+   * Perform a login.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next-middleware function.
+   */
+  async login (req, res, next) {
+    try {
+      console.log('Log in...')
+
+      // ADD: Flash message
+      res.redirect('/')
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  /**
+   * Register a new user.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -37,7 +55,26 @@ export class UsersController {
     try {
       const viewData = {}
 
+      // ADD: Flash message
       res.render('users/register', { viewData })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  /**
+   * Render view and send rendered HTML string as a HTTP response.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next-middleware function.
+   */
+  async logout (req, res, next) {
+    try {
+      console.log('Log out...')
+
+      // ADD: Flash message
+      res.redirect('/')
     } catch (error) {
       next(error)
     }
