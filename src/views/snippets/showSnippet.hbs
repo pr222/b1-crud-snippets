@@ -1,6 +1,8 @@
 <section>
-    <h1>{{viewData.title}}</a></h1>
-    <p>{{viewData.content}}</p>
+    <h2>{{viewData.title}}</h2>
+    <pre>
+        <code><p>{{viewData.content}}</p></code>
+    </pre>
     <button id="editButton"><a href="/{{viewData.id}}/edit">Edit</a></button>
     <button id="removeButton"><a href="/{{viewData.id}}/remove">Delete</a></button>
 </section>
