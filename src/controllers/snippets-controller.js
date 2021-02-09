@@ -12,7 +12,7 @@ import { Snippet } from '../models/snippets.js'
  */
 export class SnippetsController {
   /**
-   * Render view and send rendered HTML string as a HTTP response.
+   * Display all snippets.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -37,18 +37,26 @@ export class SnippetsController {
   }
 
   /**
-   * Render view and send rendered HTML string as a HTTP response.
+   * Display a form for entering a new snippet.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    * @param {Function} next - Express next-middleware function.
    */
   async new (req, res, next) {
-    res.render('snippets/new')
+    try {
+      const viewData = {
+        title: '',
+        content: ''
+      }
+      res.render('snippets/new', { viewData })
+    } catch (error) {
+      next(error)
+    }
   }
 
   /**
-   * Render view and send rendered HTML string as a HTTP response.
+   * Create the new snippet.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -60,9 +68,8 @@ export class SnippetsController {
         title: req.body.snippetTitle,
         content: req.body.codeSnippet
       })
-      console.log(snippet)
+
       await snippet.save()
-      console.log(snippet)
 
       req.session.flash = { type: 'success', text: 'The snippet was created successfully.' }
       res.redirect('.')
@@ -73,7 +80,7 @@ export class SnippetsController {
   }
 
   /**
-   * Render view and send rendered HTML string as a HTTP response.
+   * Display an individual snippet.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -81,18 +88,14 @@ export class SnippetsController {
    */
   async showSnippet (req, res, next) {
     try {
-      console.log(req.params.id)
       const snippet = await Snippet.findOne({ _id: req.params.id })
 
-      console.log(snippet)
       const viewData = {
         id: snippet._id,
         title: snippet.title,
-        createdAt: snippet.createdAt,
         content: snippet.content
       }
 
-      console.log(viewData)
       res.render('snippets/showSnippet', { viewData })
     } catch (error) {
       next(error)
@@ -100,60 +103,48 @@ export class SnippetsController {
   }
 
   /**
-   * Render view and send rendered HTML string as a HTTP response.
+   * Display a snippet in an editable form.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
-   * @param {Function} next - Express next-middleware function.
    */
-  async edit (req, res, next) {
+  async edit (req, res) {
     try {
-      console.log(req.params.id)
       const snippet = await Snippet.findOne({ _id: req.params.id })
-
-      console.log(snippet)
 
       const viewData = {
         id: snippet._id,
         title: snippet.title,
-        createdAt: snippet.createdAt,
         content: snippet.content
       }
 
-      console.log(viewData)
       res.render('snippets/edit', { viewData })
     } catch (error) {
-      next(error)
+      req.session.flash = { type: 'danger', text: error.message }
+      res.redirect('/')
     }
   }
 
   /**
-   * Render view and send rendered HTML string as a HTTP response.
+   * Update and save the newly edited snippet.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
-   * @param {Function} next - Express next-middleware function.
    */
-  async update (req, res, next) {
+  async update (req, res) {
     try {
       let snippet = await Snippet.findOne({ _id: req.params.id })
-      // console.log('FOUND:' + snippet)
-      // snippet = {
+
       snippet.title = req.body.snippetTitle
       snippet.content = req.body.codeSnippet
-      // }
-
-      // console.log('UPDATE:' + snippet)
 
       snippet = await snippet.save()
-      // await snippet.updateOne({ title: req.body.snippetTitle }, { content: req.body.codeSnippet })
-      // console.log('UPDATED?:' + snippet)
 
       req.session.flash = { type: 'success', text: 'The snippet was successfully updated.' }
       res.redirect('.')
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
-      res.redirect('./:id/edit')
+      res.redirect('./edit')
     }
   }
 
@@ -162,14 +153,10 @@ export class SnippetsController {
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
-   * @param {Function} next - Express next-middleware function.
    */
-  async remove (req, res, next) {
+  async remove (req, res) {
     try {
-      console.log(req.params.id)
       const snippet = await Snippet.findOne({ _id: req.params.id })
-
-      console.log(snippet)
 
       const viewData = {
         id: snippet._id,
@@ -177,10 +164,10 @@ export class SnippetsController {
         content: snippet.content
       }
 
-      console.log(viewData)
       res.render('snippets/delete', { viewData })
     } catch (error) {
-      next(error)
+      req.session.flash = { type: 'danger', text: error.message }
+      res.redirect('/')
     }
   }
 
@@ -189,9 +176,8 @@ export class SnippetsController {
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
-   * @param {Function} next - Express next-middleware function.
    */
-  async delete (req, res, next) {
+  async delete (req, res) {
     try {
       let snippet = await Snippet.findOne({ _id: req.params.id })
       console.log('FOUND:' + snippet)

@@ -42,7 +42,7 @@ const main = async () => {
 
   app.use(express.urlencoded({ extended: false }))
 
-  // ADD: middlewares
+  // Middlewares
   const sessionOptions = {
     name: process.env.SESSION_NAME,
     secret: process.env.SESSION_SECRET,
