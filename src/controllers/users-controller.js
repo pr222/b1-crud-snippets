@@ -5,8 +5,7 @@
  * @version 1.0.0
  */
 
-import { Snippet } from "../models/snippets"
-import { User } from "../models/users"
+import { User } from '../models/users.js'
 
 /**
  * Encapsulation of controller.
