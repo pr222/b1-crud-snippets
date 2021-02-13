@@ -5,6 +5,9 @@
  * @version 1.0.0
  */
 
+import { Snippet } from "../models/snippets"
+import { User } from "../models/users"
+
 /**
  * Encapsulation of controller.
  */
@@ -18,9 +21,10 @@ export class UsersController {
    */
   async index (req, res, next) {
     try {
-      const viewData = {}
+      // const viewData = {}
 
-      res.render('users/login', { viewData })
+      // res.render('users/login', { viewData })
+      res.render('users/login')
     } catch (error) {
       next(error)
     }
@@ -35,17 +39,17 @@ export class UsersController {
    */
   async login (req, res, next) {
     try {
-      console.log('Log in...')
-
-      // ADD: Flash message
-      res.redirect('/')
+      //
+      req.session.flash = { type: 'success', text: 'Welcome!' }
+      res.redirect('.')
     } catch (error) {
-      next(error)
+      req.session.flash = { type: 'danger', text: error.message }
+      res.redirect('./login')
     }
   }
 
   /**
-   * Register a new user.
+   * Display page for user to register at.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -55,7 +59,6 @@ export class UsersController {
     try {
       const viewData = {}
 
-      // ADD: Flash message
       res.render('users/register', { viewData })
     } catch (error) {
       next(error)
@@ -69,14 +72,39 @@ export class UsersController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next-middleware function.
    */
+  async createUser (req, res, next) {
+    try {
+      const user = new User({
+        username: req.body.usernameInput,
+        password: req.body.passwordInput
+      })
+
+      await user.save()
+
+      req.session.flash = { type: 'success', text: 'You can now log in!' }
+      res.redirect('./login')
+    } catch (error) {
+      req.session.flash = { type: 'danger', text: error.message }
+      res.redirect('./register')
+    }
+  }
+
+  /**
+   * Render view and send rendered HTML string as a HTTP response.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next-middleware function.
+   */
   async logout (req, res, next) {
     try {
-      console.log('Log out...')
+      // Terminate session
 
-      // ADD: Flash message
-      res.redirect('/')
+      req.session.flash = { type: 'success', text: 'You are now logged out!' }
+      res.redirect('.')
     } catch (error) {
-      next(error)
+      req.session.flash = { type: 'danger', text: error.message }
+      res.redirect('.')
     }
   }
 }

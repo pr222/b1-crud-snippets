@@ -1,5 +1,5 @@
 /**
- * Mongoose model of PureNumber.
+ * Mongoose model of Snippet.
  *
  * @author Pauliina Raitaniemi <pr222ja@student.lnu.se>
  * @version 1.0.0

@@ -13,9 +13,9 @@ export const router = express.Router()
 const controller = new UsersController()
 
 router.get('/login', controller.index)
-// router.post('/login', controller.login)
+router.post('/login', controller.login)
 
 router.get('/register', controller.register)
-// router.post('/register', controller.createUser)
+router.post('/register', controller.createUser)
 
 router.get('/logout', controller.logout)
