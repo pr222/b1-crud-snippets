@@ -20,9 +20,6 @@ export class UsersController {
    */
   async index (req, res, next) {
     try {
-      // const viewData = {}
-
-      // res.render('users/login', { viewData })
       res.render('users/login')
     } catch (error) {
       next(error)
@@ -38,9 +35,12 @@ export class UsersController {
    */
   async login (req, res, next) {
     try {
-      //
+      const user = await User.authenticate(req.body.usernameInput, req.body.passwordInput)
+
+      req.session.user = user
+
       req.session.flash = { type: 'success', text: 'Welcome!' }
-      res.redirect('.')
+      res.redirect('/')
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
       res.redirect('./login')
@@ -98,12 +98,14 @@ export class UsersController {
   async logout (req, res, next) {
     try {
       // Terminate session
+      req.session.destroy(() => {
+        console.log('LOGGING OUT NOW...')
+      })
 
-      req.session.flash = { type: 'success', text: 'You are now logged out!' }
-      res.redirect('.')
+      res.redirect('/')
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
-      res.redirect('.')
+      res.redirect('/')
     }
   }
 }

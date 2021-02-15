@@ -41,7 +41,7 @@ UserSchema.statics.authenticate = async function (username, password) {
   const user = await this.findOne({ username })
 
   if (!user || !(await bcrypt.compare(password, user.password))) {
-    throw new Error('Login attempt is not valid.')
+    throw new Error('Invalid login attempt. Try again.')
   }
 
   return user
