@@ -2,15 +2,22 @@
     <nav class="courtesy">
         <h1>* SNIPPETS *</h1>
         <ul>
-            <li><a href="/users/login/">Login</a></li>
-            <li><a href="/users/logout/">Logout</a></li>
+            {{#if session.user}}
+                <li><a href="/users/logout/">Logout</a></li>
+                {{else}}
+                    <li><a href="/users/login/">Login</a></li>
+            {{/if}}
         </ul>
     </nav> 
     <nav class="mainNav">
         <ul>
             <li><a href="/">Snippets</a></li>
-            <li><a href="/new/">Add snippet</a></li>
+            {{#if session.user}}
+                <li><a href="/new/">Add snippet</a></li>
+            {{/if}}
         </ul>
     </nav>
-    <div>Logged in as: </div>
+    {{#if session.user}}
+        <div>Logged in as: {{session.user.username}}</div>
+    {{/if}}
 </header>

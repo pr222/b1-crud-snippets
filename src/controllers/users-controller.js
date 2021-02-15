@@ -39,7 +39,7 @@ export class UsersController {
 
       req.session.user = user
 
-      req.session.flash = { type: 'success', text: 'Welcome!' }
+      req.session.flash = { type: 'success', text: `Welcome ${user.username}!` }
       res.redirect('/')
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }

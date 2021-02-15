@@ -13,6 +13,11 @@ const snippetsSchema = new mongoose.Schema({
     trim: true,
     minlength: 1
   },
+  author: {
+    type: String,
+    required: true,
+    minlength: 1
+  },
   content: {
     type: String,
     required: true,

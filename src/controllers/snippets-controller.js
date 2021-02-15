@@ -6,6 +6,7 @@
  */
 import moment from 'moment'
 import { Snippet } from '../models/snippets.js'
+// import { User } from '../models/users.js'
 
 /**
  * Encapsulation of controller for snippets.
@@ -20,17 +21,23 @@ export class SnippetsController {
    */
   async index (req, res, next) {
     try {
+      console.log(req.session)
+      console.log(req.session.user)
+      res.locals.session = req.session
+      // const username = await User.findOne({ username: req.session.user.username }).username
       const viewData = {
         snippets: (await Snippet.find({}))
           .map(snippet => ({
             id: snippet._id,
             title: snippet.title,
+            author: snippet.author,
             content: snippet.content,
             createdAt: moment(snippet.createdAt).fromNow()
           }))
-          .reverse()
+          .reverse()// ,
+        // user: username
       }
-
+      //  .findOne({ _id: req.params.id })
       Snippet.find().sort(({ created_at: -1 }))
 
       res.render('snippets/index', { viewData })
@@ -50,8 +57,11 @@ export class SnippetsController {
     try {
       const viewData = {
         title: '',
+        author: '',
         content: ''
       }
+      res.locals.session = req.session
+
       res.render('snippets/new', { viewData })
     } catch (error) {
       next(error)
@@ -67,10 +77,18 @@ export class SnippetsController {
    */
   async create (req, res, next) {
     try {
+      // const username = req.session.user.username
+      console.log('SESSSSSSS')
+      console.log(req.session.user)
+      console.log(req.session.user.username)
+
       const snippet = new Snippet({
         title: req.body.snippetTitle,
+        author: req.session.user.username,
         content: req.body.codeSnippet
       })
+
+      console.log(snippet)
 
       await snippet.save()
 
