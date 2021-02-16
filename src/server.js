@@ -27,7 +27,15 @@ const main = async () => {
 
   app.use(logger('dev'))
 
-  app.use(helmet()) // ADD?
+  // Default helmet options included.
+  app.use(helmet.contentSecurityPolicy({
+    directives: {
+      'default-src': ['http://localhost:8080'],
+      'script-src': ['http://localhost:8080'],
+      'style-src': ['http://localhost:8080', 'https://fonts.googleapis.com/'],
+      'font-src': ['http://localhost:8080', 'https://fonts.gstatic.com']
+    }
+  }))
 
   app.use(express.static(join(fullDirectory, '..', 'public')))
 
@@ -51,7 +59,7 @@ const main = async () => {
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 24 hours
       httpOnly: true,
-      sameSite: 'strict'
+      sameSite: 'lax'
     }
   }
 
