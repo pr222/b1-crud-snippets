@@ -6,7 +6,6 @@
  */
 import moment from 'moment'
 import { Snippet } from '../models/snippets.js'
-// import { User } from '../models/users.js'
 
 /**
  * Encapsulation of controller for snippets.
@@ -21,10 +20,6 @@ export class SnippetsController {
    */
   async index (req, res, next) {
     try {
-      console.log(req.session)
-      console.log(req.session.user)
-      res.locals.session = req.session
-      // const username = await User.findOne({ username: req.session.user.username }).username
       const viewData = {
         snippets: (await Snippet.find({}))
           .map(snippet => ({
@@ -34,11 +29,13 @@ export class SnippetsController {
             content: snippet.content,
             createdAt: moment(snippet.createdAt).fromNow()
           }))
-          .reverse()// ,
-        // user: username
+          .reverse()
       }
-      //  .findOne({ _id: req.params.id })
+
+      // Display latest from the top.
       Snippet.find().sort(({ created_at: -1 }))
+
+      res.locals.session = req.session
 
       res.render('snippets/index', { viewData })
     } catch (error) {
@@ -77,18 +74,11 @@ export class SnippetsController {
    */
   async create (req, res, next) {
     try {
-      // const username = req.session.user.username
-      console.log('SESSSSSSS')
-      console.log(req.session.user)
-      console.log(req.session.user.username)
-
       const snippet = new Snippet({
         title: req.body.snippetTitle,
         author: req.session.user.username,
         content: req.body.codeSnippet
       })
-
-      console.log(snippet)
 
       await snippet.save()
 
@@ -170,7 +160,7 @@ export class SnippetsController {
   }
 
   /**
-   * Render view and send rendered HTML string as a HTTP response.
+   * Display non-editable form for snippet.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -193,7 +183,7 @@ export class SnippetsController {
   }
 
   /**
-   * Render view and send rendered HTML string as a HTTP response.
+   * Remove snippet from the database.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -201,7 +191,6 @@ export class SnippetsController {
   async delete (req, res) {
     try {
       let snippet = await Snippet.findOne({ _id: req.params.id })
-      console.log('FOUND:' + snippet)
 
       snippet.title = req.body.snippetTitle
       snippet.content = req.body.codeSnippet
