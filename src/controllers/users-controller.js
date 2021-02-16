@@ -99,7 +99,7 @@ export class UsersController {
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    * @param {Function} next - Express next-middleware function.
-   * @returns {Error} - 404 HTTP-Error.
+   * @returns {Error} - 404 if not logged in user.
    */
   async logout (req, res, next) {
     try {

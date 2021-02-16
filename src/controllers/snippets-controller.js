@@ -5,6 +5,7 @@
  * @version 1.0.0
  */
 import moment from 'moment'
+import createError from 'http-errors'
 import { Snippet } from '../models/snippets.js'
 
 /**
@@ -71,9 +72,14 @@ export class SnippetsController {
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    * @param {Function} next - Express next-middleware function.
+   * @returns {Error} - 404 if not an logged in user.
    */
   async create (req, res, next) {
     try {
+      if (!req.session.user) {
+        return next(createError(404))
+      }
+
       const snippet = new Snippet({
         title: req.body.snippetTitle,
         author: req.session.user.username,
