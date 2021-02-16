@@ -7,6 +7,7 @@
 import moment from 'moment'
 import createError from 'http-errors'
 import { Snippet } from '../models/snippets.js'
+import { isAuthor } from '../helpers/helpers.js'
 
 /**
  * Encapsulation of controller for snippets.
@@ -21,6 +22,11 @@ export class SnippetsController {
    */
   async index (req, res, next) {
     try {
+      let loggedInUser
+      if (req.session.user) {
+        loggedInUser = req.session.user.username
+      }
+
       const viewData = {
         snippets: (await Snippet.find({}))
           .map(snippet => ({
@@ -28,6 +34,7 @@ export class SnippetsController {
             title: snippet.title,
             author: snippet.author,
             content: snippet.content,
+            isAuthor: isAuthor(snippet.author, loggedInUser),
             createdAt: moment(snippet.createdAt).fromNow()
           }))
           .reverse()
@@ -35,8 +42,6 @@ export class SnippetsController {
 
       // Display latest from the top.
       Snippet.find().sort(({ created_at: -1 }))
-
-      res.locals.session = req.session
 
       res.render('snippets/index', { viewData })
     } catch (error) {
@@ -58,7 +63,6 @@ export class SnippetsController {
         author: '',
         content: ''
       }
-      res.locals.session = req.session
 
       res.render('snippets/new', { viewData })
     } catch (error) {
@@ -105,12 +109,18 @@ export class SnippetsController {
    */
   async showSnippet (req, res, next) {
     try {
+      let loggedInUser
+      if (req.session.user) {
+        loggedInUser = req.session.user.username
+      }
+
       const snippet = await Snippet.findOne({ _id: req.params.id })
 
       const viewData = {
         id: snippet._id,
         title: snippet.title,
-        content: snippet.content
+        content: snippet.content,
+        isAuthor: isAuthor(snippet.author, loggedInUser)
       }
 
       res.render('snippets/showSnippet', { viewData })

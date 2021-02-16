@@ -11,8 +11,10 @@
                     <p>{{content}}</p>
                 </code>
             </pre>
-            <button id="editButton"><a href="./{{id}}/edit/">Edit</a></button>
-            <button id="removeButton"><a href="./{{id}}/remove/">Delete</a></button>
+            {{#if isAuthor}}
+                <button id="editButton"><a href="./{{id}}/edit/">Edit</a></button>
+                <button id="removeButton"><a href="./{{id}}/remove/">Delete</a></button>
+            {{/if}}
         </section>
     {{/each}}
 {{else}}

@@ -3,6 +3,8 @@
     <pre>
         <code><p>{{viewData.content}}</p></code>
     </pre>
-    <button id="editButton"><a href="/{{viewData.id}}/edit">Edit</a></button>
-    <button id="removeButton"><a href="/{{viewData.id}}/remove">Delete</a></button>
+    {{#if viewData.isAuthor}}
+        <button id="editButton"><a href="/{{viewData.id}}/edit">Edit</a></button>
+        <button id="removeButton"><a href="/{{viewData.id}}/remove">Delete</a></button>
+    {{/if}}
 </section>

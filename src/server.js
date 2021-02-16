@@ -76,6 +76,8 @@ const main = async () => {
       delete req.session.flash
     }
 
+    res.locals.session = req.session
+
     res.locals.baseURL = baseURL
 
     next()
@@ -86,6 +88,12 @@ const main = async () => {
 
   // Errors
   app.use(function (err, req, res, next) {
+    if (err.status === 403) {
+      return res
+        .status(403)
+        .sendFile(join(fullDirectory, 'views', 'errors', '403-forbidden.html'))
+    }
+
     if (err.status === 404) {
       return res
         .status(404)
@@ -98,7 +106,7 @@ const main = async () => {
         .sendFile(join(fullDirectory, 'views', 'errors', '500-error.html'))
     }
 
-    // Development only
+    // Development only!
     res
       .status(err.status || 500)
       .render('errors/error', { error: err })
