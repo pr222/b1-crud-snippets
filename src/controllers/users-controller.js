@@ -6,6 +6,7 @@
  */
 
 import { User } from '../models/users.js'
+import createError from 'http-errors'
 
 /**
  * Encapsulation of controller.
@@ -56,9 +57,13 @@ export class UsersController {
    */
   async register (req, res, next) {
     try {
-      const viewData = {}
-
-      res.render('users/register', { viewData })
+      console.log('REG')
+      console.log(req.session)
+      if (req.session.user) {
+        req.session.flash = { type: 'danger', text: 'Already logged in!' }
+        res.redirect('/')
+      }
+      res.render('users/register')
     } catch (error) {
       next(error)
     }
@@ -89,23 +94,24 @@ export class UsersController {
   }
 
   /**
-   * Render view and send rendered HTML string as a HTTP response.
+   * Logout logged in user.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    * @param {Function} next - Express next-middleware function.
+   * @returns {Error} - 404 HTTP-Error.
    */
   async logout (req, res, next) {
     try {
-      // Terminate session
-      req.session.destroy(() => {
-        console.log('LOGGING OUT NOW...')
-      })
+      if (!req.session.user) {
+        return next(createError(404))
+      }
+
+      req.session.destroy()
 
       res.redirect('/')
     } catch (error) {
-      req.session.flash = { type: 'danger', text: error.message }
-      res.redirect('/')
+      next(error)
     }
   }
 }
