@@ -12,19 +12,16 @@ export const router = express.Router()
 
 const controller = new SnippetsController()
 
-// Index page with all snippets.
+// Index page for viewing all snippets.
 router.get('/', controller.index)
 
-// Page for creating a new snippet.
 router.get('/new', controller.new)
-router.post('/create', controller.create)
+router.post('/create', controller.isLoggedIn, controller.create)
 
-// View an individual snippet.
 router.get('/:id', controller.showSnippet)
-// Update snippet
-router.get('/:id/edit', controller.edit)
-router.post('/:id/update', controller.update)
 
-// Removing snippets
+router.get('/:id/edit', controller.edit)
+router.post('/:id/update', controller.isLoggedIn, controller.isOwner, controller.update)
+
 router.get('/:id/remove', controller.remove)
-router.post('/:id/delete', controller.delete)
+router.post('/:id/delete', controller.isLoggedIn, controller.isOwner, controller.delete)

@@ -14,6 +14,40 @@ import { isAuthor } from '../helpers/helpers.js'
  */
 export class SnippetsController {
   /**
+   * Authorizes if a user is logged in.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next-middleware function.
+   * @returns {Function} next - Express next-middleware function.
+   */
+  async isLoggedIn (req, res, next) {
+    if (!req.session.user) {
+      return next(createError(404, 'Not Found'))
+    }
+
+    next()
+  }
+
+  /**
+   * Authorizes if a user is owner of requested id.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next-middleware function.
+   * @returns {Function} next - Express next-middleware function.
+   */
+  async isOwner (req, res, next) {
+    const snippet = await Snippet.findOne({ _id: req.params.id })
+
+    if (snippet.author !== req.session.user.username) {
+      return next(createError(403))
+    }
+
+    next()
+  }
+
+  /**
    * Display all snippets.
    *
    * @param {object} req - Express request object.
@@ -39,7 +73,6 @@ export class SnippetsController {
           }))
           .reverse()
       }
-
       // Display latest from the top.
       Snippet.find().sort(({ created_at: -1 }))
 
@@ -71,19 +104,15 @@ export class SnippetsController {
   }
 
   /**
-   * Create the new snippet.
+   * Create the new snippet and save it to the database.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    * @param {Function} next - Express next-middleware function.
-   * @returns {Error} - 404 if not an logged in user.
+   * @returns {Function} next - Express next-middleware function.
    */
   async create (req, res, next) {
     try {
-      if (!req.session.user) {
-        return next(createError(404))
-      }
-
       const snippet = new Snippet({
         title: req.body.snippetTitle,
         author: req.session.user.username,
@@ -157,8 +186,10 @@ export class SnippetsController {
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
+   * @param {Function} next - Express next-middleware function.
+   * @returns {Function} next - Express next-middleware function.
    */
-  async update (req, res) {
+  async update (req, res, next) {
     try {
       let snippet = await Snippet.findOne({ _id: req.params.id })
 
@@ -203,8 +234,10 @@ export class SnippetsController {
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
+   * @param {Function} next - Express next-middleware function.
+   * @returns {Function} next - Express next-middleware function.
    */
-  async delete (req, res) {
+  async delete (req, res, next) {
     try {
       let snippet = await Snippet.findOne({ _id: req.params.id })
 

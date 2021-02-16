@@ -38,10 +38,12 @@ export class UsersController {
     try {
       const user = await User.authenticate(req.body.usernameInput, req.body.passwordInput)
 
-      req.session.user = user
-
-      req.session.flash = { type: 'success', text: `Welcome ${user.username}!` }
-      res.redirect('/')
+      req.session.regenerate(() => {
+        req.session.user = user
+        console.log(user)
+        req.session.flash = { type: 'success', text: `Welcome ${user.username}!` }
+        res.redirect('/')
+      })
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
       res.redirect('./login')
@@ -57,8 +59,6 @@ export class UsersController {
    */
   async register (req, res, next) {
     try {
-      console.log('REG')
-      console.log(req.session)
       if (req.session.user) {
         req.session.flash = { type: 'danger', text: 'Already logged in!' }
         res.redirect('/')
@@ -70,7 +70,7 @@ export class UsersController {
   }
 
   /**
-   * Render view and send rendered HTML string as a HTTP response.
+   * Create new user and save it to the database.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -94,17 +94,17 @@ export class UsersController {
   }
 
   /**
-   * Logout logged in user.
+   * Logout only logged in user.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    * @param {Function} next - Express next-middleware function.
-   * @returns {Error} - 404 if not logged in user.
+   * @returns {Function} next - Express next-middleware function.
    */
   async logout (req, res, next) {
     try {
       if (!req.session.user) {
-        return next(createError(404))
+        return next(createError(404, 'Not Found'))
       }
 
       req.session.destroy()

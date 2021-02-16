@@ -7,7 +7,6 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 
-// ADD: static methods for helping with registering.
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -36,7 +35,7 @@ UserSchema.pre('save', async function () {
  * @param {string} username - the username.
  * @param {string} password - the password.
  * @returns {object} - return user if valid.
- */// req.body.email, req.body.password
+ */
 UserSchema.statics.authenticate = async function (username, password) {
   const user = await this.findOne({ username })
 
