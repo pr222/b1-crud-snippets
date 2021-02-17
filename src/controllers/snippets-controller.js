@@ -177,7 +177,7 @@ export class SnippetsController {
       res.render('snippets/edit', { viewData })
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
-      res.redirect('/')
+      res.redirect('.')
     }
   }
 
@@ -225,7 +225,7 @@ export class SnippetsController {
       res.render('snippets/delete', { viewData })
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
-      res.redirect('/')
+      res.redirect('../')
     }
   }
 
@@ -247,10 +247,10 @@ export class SnippetsController {
       snippet = await snippet.remove()
 
       req.session.flash = { type: 'success', text: 'The snippet was successfully removed.' }
-      res.redirect('/')
+      res.redirect('../')
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
-      res.redirect('./delete')
+      res.redirect('./remove')
     }
   }
 }

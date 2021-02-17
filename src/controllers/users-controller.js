@@ -40,9 +40,9 @@ export class UsersController {
 
       req.session.regenerate(() => {
         req.session.user = user
-        console.log(user)
+
         req.session.flash = { type: 'success', text: `Welcome ${user.username}!` }
-        res.redirect('/')
+        res.redirect('../')
       })
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
@@ -61,7 +61,7 @@ export class UsersController {
     try {
       if (req.session.user) {
         req.session.flash = { type: 'danger', text: 'Already logged in!' }
-        res.redirect('/')
+        res.redirect('../')
       }
       res.render('users/register')
     } catch (error) {
@@ -109,7 +109,7 @@ export class UsersController {
 
       req.session.destroy()
 
-      res.redirect('/')
+      res.redirect('../../')
     } catch (error) {
       next(error)
     }

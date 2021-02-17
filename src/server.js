@@ -25,6 +25,8 @@ const main = async () => {
 
   const app = express()
 
+  const PORT = process.env.PORT || 3000
+
   app.use(logger('dev'))
 
   app.use(helmet())
@@ -111,8 +113,8 @@ const main = async () => {
       .render('errors/error', { error: err })
   })
 
-  app.listen(process.env.PORT, () => {
-    console.log(`The server is now running at http://localhost:${process.env.PORT}`)
+  app.listen(PORT, () => {
+    console.log(`The server is now running at http://localhost:${PORT}`)
     console.log('Press Ctrl+C to terminate.')
   })
 }
