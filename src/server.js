@@ -27,13 +27,12 @@ const main = async () => {
 
   app.use(logger('dev'))
 
-  // Default helmet options included.
+  app.use(helmet())
   app.use(helmet.contentSecurityPolicy({
     directives: {
-      'default-src': ['http://localhost:8080'],
-      'script-src': ['http://localhost:8080'],
-      'style-src': ['http://localhost:8080', 'https://fonts.googleapis.com/'],
-      'font-src': ['http://localhost:8080', 'https://fonts.gstatic.com']
+      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+      'style-src': ["'self'", 'https://fonts.googleapis.com/'],
+      'font-src': ["'self'", 'https://fonts.gstatic.com']
     }
   }))
 

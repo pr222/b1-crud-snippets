@@ -3,9 +3,9 @@
         <h1>* SNIPPETS APP *</h1>
         <ul>
             {{#if session.user}} 
-                <li><a href="/users/logout/">Logout</a></li>
+                <li><a href="./users/logout/">Logout</a></li>
                 {{else}}
-                    <li><a href="/users/login/">Login</a></li>
+                    <li><a href="./users/login/">Login</a></li>
             {{/if}}
         </ul>
     </nav> 
@@ -13,7 +13,7 @@
         <ul>
             <li><a href="/">Snippets</a></li>
             {{#if session.user}}
-                <li><a href="/new/">Add snippet</a></li>
+                <li><a href="./new/">Add snippet</a></li>
             {{/if}}
         </ul>
     </nav>
